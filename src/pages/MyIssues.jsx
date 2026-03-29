@@ -111,7 +111,7 @@ function MyIssues() {
                   >
                     <h5>{issue.title}</h5>
 
-                    <Badge bg={getStatusColor(status)}>{status}</Badge>
+                    <Badge bg={getStatusColor(status)} style={{fontSize: "17px"}}>{status}</Badge>
                   </div>
 
                   <p style={{ marginTop: "10px" }}>{issue.description}</p>
