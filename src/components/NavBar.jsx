@@ -346,7 +346,7 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
           </Button>
 
           {isRegister ? (
-            <Button onClick={handleRegister} disabled={loading}>
+            <Button type="button" onClick={handleRegister} disabled={loading}>
               {loading ? (
                 <>
                   <Spinner size="sm" /> Registering...
@@ -356,7 +356,7 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
               )}
             </Button>
           ) : (
-            <Button onClick={handleLogin} disabled={loading}>
+            <Button type="button" onClick={handleLogin} disabled={loading}>
               {loading ? (
                 <>
                   <Spinner size="sm" /> Logging in...
