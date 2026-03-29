@@ -107,6 +107,8 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
       } else {
         alert("Login failed");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
