@@ -91,11 +91,22 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
       } else {
         navigate("/"); // normal home
       }
+      // } catch (err) {
+      //   console.error(err.response?.data); // see real error
+      //   alert("Login failed");
+      // } finally {
+      //   setLoading(false);
+      // }
     } catch (err) {
-      console.error(err.response?.data); // see real error
-      alert("Login failed");
-    } finally {
-      setLoading(false);
+      console.error(err.response?.data);
+
+      const errorMsg = err.response?.data?.error;
+
+      if (errorMsg === "Invalid credentials") {
+        alert("Invalid email or password");
+      } else {
+        alert("Login failed");
+      }
     }
   };
 
@@ -247,10 +258,10 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
                       color: "white",
                       fontSize: "18px",
                       marginLeft: "5px",
-                      fontStyle: "italic"
+                      fontStyle: "italic",
                     }}
                   >
-                  {userName || "User"}
+                    {userName || "User"}
                   </span>
                 </span>
 
