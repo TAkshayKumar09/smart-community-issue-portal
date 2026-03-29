@@ -93,12 +93,9 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
       }
     } catch (err) {
       console.error(err.response?.data); // see real error
-
-      if (err.response?.status === 400 || err.response?.status === 401) {
-        alert("Invalid email or password"); // ✅ always works
-      } else {
-        alert("Login failed");
-      }
+      alert("Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -250,10 +247,10 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
                       color: "white",
                       fontSize: "18px",
                       marginLeft: "5px",
-                      fontStyle: "italic",
+                      fontStyle: "italic"
                     }}
                   >
-                    {userName || "User"}
+                  {userName || "User"}
                   </span>
                 </span>
 
