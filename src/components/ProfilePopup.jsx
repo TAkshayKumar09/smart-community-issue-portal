@@ -32,10 +32,14 @@ function ProfilePopup({ setIsLoggedIn, setShowProfile }) {
         setEmail(res.data.email);
         setPhone(res.data.phone);
       } catch (err) {
-        console.error(err);
+        if (err.response?.status === 401) {
+          // ✅ do nothing (interceptor already handles logout)
+          return;
+        }
+
+        console.error(err); // only log real errors
       }
     };
-
     fetchUser();
   }, []);
 
@@ -153,7 +157,7 @@ function ProfilePopup({ setIsLoggedIn, setShowProfile }) {
             fontWeight: "bold",
           }}
         >
-          <i class="bi bi-x-lg"></i>
+          <i className="bi bi-x-lg"></i>
         </span>
 
         {/* 👇 YOUR EXISTING CONTENT CONTINUES */}

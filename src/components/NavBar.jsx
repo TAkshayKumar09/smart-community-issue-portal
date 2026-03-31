@@ -24,6 +24,8 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
+    if (!isLoggedIn) return;
+
     const checkUser = async () => {
       try {
         await axios.get(
@@ -34,7 +36,7 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
         if (err.response?.status === 401) {
           localStorage.clear();
           setIsLoggedIn(false);
-          window.location.href = "/";
+          setShowLogin(true);
         }
       }
     };
@@ -44,7 +46,7 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
     const interval = setInterval(checkUser, 60000); // 🔥 every 1 min
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const name = localStorage.getItem("name");

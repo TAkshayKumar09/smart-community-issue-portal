@@ -4,10 +4,14 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.clear();
-      window.location.href = "/"; // redirect to home/login
+    if (
+      error.response?.status === 401 &&
+      localStorage.getItem("isLoggedIn") === "true"
+    ) {
+      // 🔥 ONLY logout if user was actually logged in
+      window.dispatchEvent(new Event("logout"));
     }
+
     return Promise.reject(error);
   },
 );
