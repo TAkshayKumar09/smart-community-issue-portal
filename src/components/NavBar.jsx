@@ -24,6 +24,29 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
+    const checkUser = async () => {
+      try {
+        await axios.get(
+          "https://smart-community-issue-portal.onrender.com/get_user/",
+          { withCredentials: true },
+        );
+      } catch (err) {
+        if (err.response?.status === 401) {
+          localStorage.clear();
+          setIsLoggedIn(false);
+          window.location.href = "/";
+        }
+      }
+    };
+
+    checkUser(); // initial check
+
+    const interval = setInterval(checkUser, 60000); // 🔥 every 1 min
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     const name = localStorage.getItem("name");
     if (name) {
       setUserName(name);
@@ -81,7 +104,7 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
 
       // SAVE EMAIL
       localStorage.setItem("email", email);
-      localStorage.setItem("name", res.data.name);
+      // localStorage.setItem("name", res.data.name);
       localStorage.setItem("isLoggedIn", "true"); // ADD HERE
       localStorage.setItem("name", user.name);
 
