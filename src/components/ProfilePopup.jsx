@@ -2,11 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePopup({ setIsLoggedIn, setShowProfile }) {
   const [loading, setLoading] = useState(false);
 
   const [editMode, setEditMode] = useState(false);
+
+  const navigate = useNavigate();
 
   // ✅ get from backend (not localStorage)
   const [name, setName] = useState("");
@@ -16,8 +19,6 @@ function ProfilePopup({ setIsLoggedIn, setShowProfile }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const popupRef = useRef();
 
   // 🔥 Fetch user details from backend
   useEffect(() => {
@@ -48,6 +49,7 @@ function ProfilePopup({ setIsLoggedIn, setShowProfile }) {
     localStorage.clear();
     setIsLoggedIn(false);
     setShowProfile(false);
+    navigate("/"); // 🔥 redirect to home
   };
 
   // 🔥 Update Profile
