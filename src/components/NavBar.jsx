@@ -27,7 +27,7 @@ export function NavBar({ showLogin, setShowLogin, isLoggedIn, setIsLoggedIn }) {
     const checkUser = async () => {
       try {
         await axios.get(
-          "https://smart-community-issue-portal.onrender.com/get_user/",
+          "https://smart-community-issue-portal.onrender.com/userdetails/",
           { withCredentials: true },
         );
       } catch (err) {
